@@ -11,6 +11,7 @@ import ec.util.*;
 import ec.*;
 import ec.simple.*;
 import ec.vector.*;
+import ec.patientCare.*;
 
 public class OddRosenbrock extends Problem implements SimpleProblemForm
     {
@@ -27,7 +28,9 @@ public class OddRosenbrock extends Problem implements SimpleProblemForm
         double[] genome = ((DoubleVectorIndividual)ind).genome;
         int len = genome.length;
         double value = 0;
-
+        
+        ecj_care runCare = new ecj_care(1000);
+        
         // Compute the Rosenbrock function for our genome
         for( int i = 1 ; i < len ; i++ )
             value += 100*(genome[i-1]*genome[i-1]-genome[i])*
@@ -38,10 +41,17 @@ public class OddRosenbrock extends Problem implements SimpleProblemForm
         // But SimpleFitness requires a maximizing function -- where 0 is worst
         // and 1 is best.  To use SimpleFitness, we must convert the function.
         // This is the Koza style of doing it:
+        
+        value = run(10, runCare);
 
         value = 1.0 / ( 1.0 + value );
         ((SimpleFitness)(ind.fitness)).setFitness( state, value, value==1.0 );
     
         ind.evaluated = true;
         }
+    
+    private double run(int params, ecj_care runCare) {
+    	double results = runCare.fit();
+    	return results;
+    }
     }

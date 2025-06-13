@@ -1,0 +1,55 @@
+parent.0		= ../../../resources/ec/simple/simple.params
+
+breedthreads	= 8
+evalthreads	= 8
+
+seed.0 = time
+seed.1 = time
+seed.2 = time
+seed.3 = time
+seed.4 = time
+seed.5 = time
+seed.6 = time
+seed.7 = time
+
+
+## 20 generations could be too few, but for this problem it looks like its ok
+pop.subpop.0.size = 20
+generations = 20 
+
+##
+# Define representation
+pop.subpop.0.species		= ec.vector.IntegerVectorSpecies
+pop.subpop.0.species.ind	= ec.vector.IntegerVectorIndividual
+pop.subpop.0.species.fitness = ec.simple.SimpleFitness
+
+#I think this is the min and max values for the genes
+pop.subpop.0.species.min-gene	= 0
+pop.subpop.0.species.max-gene 	= 1000
+
+#defining the mutation
+pop.subpop.0.species.genome-size	= 1
+pop.subpop.0.species.mutation-type      = reset
+pop.subpop.0.species.mutation-prob	= 0.9
+
+#trying to debug error
+pop.subpop.0.species.crossover-type	= one
+
+
+
+##
+# Define the breeding pipeline: use simple breeding
+pop.subpop.0.species.pipe				= ec.vector.breed.VectorMutationPipeline
+pop.subpop.0.species.pipe.source.0.size = 2
+pop.subpop.0.species.pipe.source.0		= ec.select.TournamentSelection
+
+eval.problem		= ec.patientCare.Care_ecj
+
+
+##Statistics
+# Add our statistics object
+stat.num-children      = 1
+stat.child.0           = ec.patientCare.MyStatistics
+stat.child.0.pop-file  = pop.stat
+stat.child.0.info-file = info.stat
+
