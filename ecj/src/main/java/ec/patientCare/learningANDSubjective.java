@@ -12,7 +12,7 @@ public class learningANDSubjective extends Problem implements SimpleProblemForm 
 	// (in the form:  state.random[threadnum] ) 
 	// and to the output facility
 	
-	Care simulation;
+	//Care simulation;
 	
     public void evaluate(final EvolutionState state,
             final Individual ind,
@@ -29,26 +29,14 @@ public class learningANDSubjective extends Problem implements SimpleProblemForm 
         double f1;
         double f2;
         double f3;
-        double f4;
-        double f5;
-        double f6;
-        double f7;
-        double f8;
-        double f9;
-        double f10;
-        f1 = fit((DoubleVectorIndividual)ind2);
-        f2 = fit((DoubleVectorIndividual)ind2);
-        f3 = fit((DoubleVectorIndividual)ind2);
-        f4 = fit((DoubleVectorIndividual)ind2);
-        f5 = fit((DoubleVectorIndividual)ind2);
-        f6 = fit((DoubleVectorIndividual)ind2);
-        f7 = fit((DoubleVectorIndividual)ind2);
-        f8 = fit((DoubleVectorIndividual)ind2);
-        f9 = fit((DoubleVectorIndividual)ind2);
-        f10 = fit((DoubleVectorIndividual)ind2);
+        
+        f1 = fit((DoubleVectorIndividual)ind2, state.simulations[threadnum]);
+        f2 = fit((DoubleVectorIndividual)ind2, state.simulations[threadnum]);
+        f3 = fit((DoubleVectorIndividual)ind2, state.simulations[threadnum]);
+
         
         double f;
-        f = (f1+f2+f3+f4+f5+f6+f7+f8+f9+f10)/10;
+        f = (f1+f2+f3)/3;
         ((SimpleFitness)ind2.fitness).setFitness(state,
                 // ...the fitness...
                 f,
@@ -57,13 +45,13 @@ public class learningANDSubjective extends Problem implements SimpleProblemForm 
         ind2.evaluated = true;
 }
 
-    public double fit(DoubleVectorIndividual ind2) {
+    public double fit(DoubleVectorIndividual ind2, Care simulation) {
 		// here I run the model
-    	simulation = new Care(System.currentTimeMillis());
 		// here I pass it the params
+		simulation.start();
     	simulation.setLEARNING_RATE(ind2.genome[0]);
 		simulation.setSUBJECTIVE_INITIATIVE(ind2.genome[1]);
-		simulation.start();
+
 		do{
 			if (!simulation.schedule.step(simulation)) {
 				System.out.println("algo falso en schedule.step"); //here return somethin to make it fatal

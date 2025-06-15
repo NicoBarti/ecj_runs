@@ -1,5 +1,9 @@
 parent.0		= ../../../resources/ec/simple/simple.params
 
+##I'm using this class to integrate with MASON
+state ec.patientCare.MiEvoutionState
+
+
 breedthreads	= 8
 evalthreads	= 8
 
@@ -13,7 +17,7 @@ seed.6 = time
 seed.7 = time
 
 pop.subpop.0.size = 50
-generations = 300
+generations = 30
 
 ##
 # Define representation
@@ -31,8 +35,8 @@ pop.subpop.0.species.mutation-prob	= 0.2
 ## parameters for FloatVectorSpecies
 pop.subpop.0.species.min-gene	= 0
 pop.subpop.0.species.max-gene 	= 1
-#pop.subpop.0.species.mutation-type = gauss
-pop.subpop.0.species.mutation-stdev = 0.001
+pop.subpop.0.species.mutation-type = gauss
+pop.subpop.0.species.mutation-stdev = 0.01
 
 ##
 # Define the breeding pipeline: use simple breeding

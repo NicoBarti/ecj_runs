@@ -59,7 +59,7 @@ public class satistics_learningANDSubjective extends Statistics {
     // print out the population 
     state.population.printPopulation(state,popLog);
     
-    // print out best genome #0 individual in subpop 0
+    // Encuentra el mejor individuo de esta generación - evaluación
     int best = 0;
     //double best_val = ((IntegerVectorIndividual)state.population.subpops.get(0).individuals.get(0)).genome[0];
     double best_val = ((DoubleVectorIndividual)state.population.subpops.get(0).individuals.get(0)).fitness.fitness();

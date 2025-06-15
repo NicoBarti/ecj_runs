@@ -7,8 +7,6 @@ import java.util.HashMap;
 
 import sim.engine.*;
 import sim.util.*;
-import sim.field.continuous.*;
-import sim.field.network.*;
 
 public class Care extends SimState {
 	//constrains
@@ -35,13 +33,14 @@ public class Care extends SimState {
 	public int totalInteractions = 0;
 	public int totalTreatment = 0;
 	private int d;
+	
 	// VISUALIZATION
 	//I'll implement all the objects for visualization here and control them from here
 	//so I don't interfere with the other uses of the simulation, and don't touch patients and docs
 	// some methods will only be called if there is a visualization
-	public boolean visual = true;
-	public Continuous2D center = new Continuous2D(1.0,100,100);
-    public Network visualPatients = new Network(false);
+	//public boolean visual = true;
+	//public Continuous2D center = new Continuous2D(1.0,100,100);
+    //public Network visualPatients = new Network(false);
     // eventually the Bag patients could be substituted for the Network visualPatients
 	
 
@@ -59,21 +58,23 @@ public class Care extends SimState {
 		super.start();
 		
 		// clear the center
-        center.clear();
+        //center.clear();
         // clear the visualPatients
-        visualPatients.clear();
+        //visualPatients.clear();
         
         // should i clear the Bag? I think so, add in the other branches
         patients.clear();
 		
 		// initialize and add Doctor
 		doctor = new Doctor();
-		if(visual) { // add doctor to  visualization: TO DO!!
-			//visualPatients.addNode(doctor);
-			Double2D docPos = new Double2D(center.getWidth() * 0.5,
-	        		center.getHeight() * 0.5);
-			center.setObjectLocation(doctor, docPos);
-		}
+		
+		//if(visual) { // add doctor to  visualization: TO DO!!
+		//	//visualPatients.addNode(doctor);
+		//	Double2D docPos = new Double2D(center.getWidth() * 0.5,
+	    //   		center.getHeight() * 0.5);
+		//	center.setObjectLocation(doctor, docPos);
+		//}
+		
 		doctor.initializeDoctor(capacity, numPatients, t, LEARNING_RATE);
 		schedule.scheduleRepeating(schedule.EPOCH, 0, doctor);
 		// initialize and add patients
@@ -86,16 +87,16 @@ public class Care extends SimState {
 			patients.add(patient);
 			allocationRule(patient.getReceivedCare(), patient.getd(), i);
 			//schedule.scheduleOnce(schedule.EPOCH, 1, patient);
-			if(visual) { // add this patient for visualization:
+			//if(visual) { // add this patient for visualization:
 				//visualPatients.addNode(patient);
-				visualPatients.addEdge(doctor,patient, 1);
-			}
+			//	visualPatients.addEdge(doctor,patient, 1);
+			//}
 		}
-		updatePositions(0);
+		//updatePositions(0);
 		
-		  if (visual) 		// anonymus agent that actualizes network positions
-		  {schedule.scheduleRepeating(schedule.EPOCH, 0, new Steppable()
-		  {public void step(SimState state) {updatePositions((int)state.schedule.getSteps());}});}
+		  //if (visual) 		// anonymus agent that actualizes network positions
+		  //{schedule.scheduleRepeating(schedule.EPOCH, 0, new Steppable()
+		  //{public void step(SimState state) {updatePositions((int)state.schedule.getSteps());}});}
 	
 	  
 	}
@@ -126,24 +127,24 @@ public class Care extends SimState {
 	}
 	
 
-	public void updatePositions(int week) {
-		int diameter = 7;
-		double doctorMargin = 0.1;
-		//double movement = 10;
-		for(int i = 0; i < numPatients; i++) {
-			Patient patient = (Patient) (patients.objs[i]);
-			double angle = (2*Math.PI)/numPatients * patient.id;
-			double distanceFromDoctor = doctorMargin+(5-patient.getExpectativas())*diameter;
-
-			//double distanceFromDoctor = Math.max(doctorMargin, (diameter - patient.getcurrentMot())*diameter);
-			//double distanceFromDoctor = (diameter - patient.getexpectation()[week]+doctorMargin)*movement;
-			Double2D newposition = new Double2D(
-					center.getWidth() * 0.5 + Math.cos(angle) * distanceFromDoctor,
-	        		center.getHeight() * 0.5 + Math.sin(angle)* distanceFromDoctor);
-			center.setObjectLocation(patient, newposition);
-			//System.out.println(newposition);
-		}	
-	}
+//	public void updatePositions(int week) {
+//		int diameter = 7;
+//		double doctorMargin = 0.1;
+//		//double movement = 10;
+//		for(int i = 0; i < numPatients; i++) {
+//			Patient patient = (Patient) (patients.objs[i]);
+//			double angle = (2*Math.PI)/numPatients * patient.id;
+//			double distanceFromDoctor = doctorMargin+(5-patient.getExpectativas())*diameter;
+//
+//			//double distanceFromDoctor = Math.max(doctorMargin, (diameter - patient.getcurrentMot())*diameter);
+//			//double distanceFromDoctor = (diameter - patient.getexpectation()[week]+doctorMargin)*movement;
+//			Double2D newposition = new Double2D(
+//					center.getWidth() * 0.5 + Math.cos(angle) * distanceFromDoctor,
+//	        		center.getHeight() * 0.5 + Math.sin(angle)* distanceFromDoctor);
+//			center.setObjectLocation(patient, newposition);
+//			//System.out.println(newposition);
+//		}	
+//	}
 	
 	
 	public void finish() {
