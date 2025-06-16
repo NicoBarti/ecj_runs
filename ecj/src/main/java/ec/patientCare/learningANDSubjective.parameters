@@ -16,8 +16,8 @@ seed.5 = time
 seed.6 = time
 seed.7 = time
 
-pop.subpop.0.size = 50
-generations = 30
+pop.subpop.0.size = 10
+generations = 100
 
 ##
 # Define representation
@@ -49,6 +49,7 @@ eval.problem		= ec.patientCare.learningANDSubjective
 
 ##Statistics
 # Add our statistics object
+stat.file		= out.stat
 stat.num-children      = 1
 stat.child.0           = ec.patientCare.satistics_learningANDSubjective
 stat.child.0.pop-file  = pop_learningAndSubjective.stat

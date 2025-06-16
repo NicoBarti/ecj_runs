@@ -26,17 +26,27 @@ public class learningANDSubjective extends Problem implements SimpleProblemForm 
         if (!(ind2.fitness instanceof SimpleFitness))
             state.output.fatal("Whoa!  It's not a SimpleFitness!!!",null);
         
-        double f1;
-        double f2;
-        double f3;
+        double f0; double f1;double f2;double f3;double f4;double f5;
+        double f6;
+        double f7;
+        double f8;
+        double f9;
         
+        f0 = fit((DoubleVectorIndividual)ind2, state.simulations[threadnum]);
         f1 = fit((DoubleVectorIndividual)ind2, state.simulations[threadnum]);
         f2 = fit((DoubleVectorIndividual)ind2, state.simulations[threadnum]);
         f3 = fit((DoubleVectorIndividual)ind2, state.simulations[threadnum]);
+        f3 = fit((DoubleVectorIndividual)ind2, state.simulations[threadnum]);
+        f4 = fit((DoubleVectorIndividual)ind2, state.simulations[threadnum]);
+        f5 = fit((DoubleVectorIndividual)ind2, state.simulations[threadnum]);
+        f6 = fit((DoubleVectorIndividual)ind2, state.simulations[threadnum]);
+        f7 = fit((DoubleVectorIndividual)ind2, state.simulations[threadnum]);
+        f8 = fit((DoubleVectorIndividual)ind2, state.simulations[threadnum]);
+        f9 = fit((DoubleVectorIndividual)ind2, state.simulations[threadnum]);
 
         
         double f;
-        f = (f1+f2+f3)/3;
+        f = (f0+f1+f2+f3+f4+f5+f6+f7+f8+f9)/10;
         ((SimpleFitness)ind2.fitness).setFitness(state,
                 // ...the fitness...
                 f,
@@ -46,8 +56,6 @@ public class learningANDSubjective extends Problem implements SimpleProblemForm 
 }
 
     public double fit(DoubleVectorIndividual ind2, Care simulation) {
-		// here I run the model
-		// here I pass it the params
 		simulation.start();
     	simulation.setLEARNING_RATE(ind2.genome[0]);
 		simulation.setSUBJECTIVE_INITIATIVE(ind2.genome[1]);
@@ -63,7 +71,7 @@ public class learningANDSubjective extends Problem implements SimpleProblemForm 
 		for (int i = 0; i < simulation.patients.numObjs; i++) {
 			fit += ((Patient) (simulation.patients.objs[i])).getNecesidades();
 		}
-		return -fit;
+		return -fit/simulation.patients.numObjs;
     	
     }
     

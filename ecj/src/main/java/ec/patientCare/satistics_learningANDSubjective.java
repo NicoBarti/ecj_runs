@@ -3,7 +3,7 @@ import ec.*;
 import ec.util.*;
 import java.io.*;
 import ec.vector.*;
-
+import ec.util.Parameter;
 
 public class satistics_learningANDSubjective extends Statistics {
 	 // The parameter string and log number of the file for our readable population
@@ -13,6 +13,7 @@ public class satistics_learningANDSubjective extends Statistics {
     // The parameter string and log number of the file for our best-genome-#0 individual
     public static final String P_INFOFILE = "info-file";
     public int infoLog;
+    
     
     public void setup(final EvolutionState state, final Parameter base)
     {
@@ -79,4 +80,33 @@ public class satistics_learningANDSubjective extends Statistics {
     
     }
 
+    public void preInitializationStatistics(final EvolutionState state) {
+    	int int_param;
+    	double doub_param;
+    	String str_param;
+
+    	Parameter par_gen = new Parameter("generations");
+    	Parameter par_popsize = new Parameter("pop.subpop.0.size");
+    	Parameter par_mutProb = new Parameter("pop.subpop.0.species.mutation-prob");
+    	Parameter par_mutType = new Parameter("pop.subpop.0.species.mutation-type");
+    	Parameter par_mutStDev = new Parameter("pop.subpop.0.species.mutation-stdev");
+
+    	state.output.print("inicio run info\n", infoLog);
+    	
+    	int_param = state.parameters.getInt(par_gen, null);
+    	state.output.print("generations: "+Integer.toString(int_param)+"\n", infoLog);
+    	int_param = state.parameters.getInt(par_popsize, null);
+    	state.output.print("popsize: "+Integer.toString(int_param)+"\n", infoLog);
+    	doub_param = state.parameters.getDouble(par_mutProb, null);
+    	state.output.print("mutProb: " + Double.toString(doub_param)+"\n", infoLog);
+    	str_param = state.parameters.getString(par_mutType, null);
+    	state.output.print("mutType: "+str_param+"\n", infoLog);
+    	doub_param = state.parameters.getDouble(par_mutStDev, null);
+    	state.output.print("mutStDev: "+ Double.toString(doub_param) +"\n", infoLog);
+    	
+    	state.output.print("fin run info\n", infoLog);
+
+    	
+    }
+    
 }
