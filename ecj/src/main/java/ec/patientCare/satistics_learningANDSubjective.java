@@ -14,6 +14,9 @@ public class satistics_learningANDSubjective extends Statistics {
     public static final String P_INFOFILE = "info-file";
     public int infoLog;
     
+    //This is for model details documentation
+    public static final String P_CAREFILE = "care-file";
+    public int careLog;
     
     public void setup(final EvolutionState state, final Parameter base)
     {
@@ -45,6 +48,20 @@ public class satistics_learningANDSubjective extends Statistics {
         state.output.fatal("An IOException occurred while trying to create the log " + 
             infoFile + ":\n" + i);
         }
+    
+    //finally care file
+    File careFile = state.parameters.getFile(
+    		base.push(P_CAREFILE), null);
+    if (careFile!=null) try
+    	{
+    	careLog = state.output.addLog(careFile, true);
+    	}
+    catch (IOException i)
+    	{
+    	state.output.fatal("An IOException occurred while trying to create the log " + 
+                infoFile + ":\n" + i);
+    	}
+    		
 
     }
     
@@ -81,6 +98,10 @@ public class satistics_learningANDSubjective extends Statistics {
     }
 
     public void preInitializationStatistics(final EvolutionState state) {
+    	
+        super.preInitializationStatistics(state);
+
+    	
     	int int_param;
     	double doub_param;
     	String str_param;
@@ -107,6 +128,39 @@ public class satistics_learningANDSubjective extends Statistics {
     	state.output.print("fin run info\n", infoLog);
 
     	
+    }
+    
+    public void finalStatistics(final EvolutionState state, final int result)
+    {
+    super.finalStatistics(state,result);
+    
+    int capacity = state.simulations[0].getCapacity();
+    int NumPatients = state.simulations[0].getNumPatients();
+    int weeks = state.simulations[0].getweeks();
+    double SEVERITY_ALLOCATION = state.simulations[0].getSEVERITY_ALLOCATION();
+    double CONTINUITY_ALLOCATION = state.simulations[0].getCONTINUITY_ALLOCATION();
+    double DISEASE_SEVERITY = state.simulations[0].getDISEASE_SEVERITY();
+    double LEARNING_RATE = state.simulations[0].getLEARNING_RATE();
+    double SUBJECTIVE_INITIATIVE = state.simulations[0].getSUBJECTIVE_INITIATIVE();
+    double EXP_POS = state.simulations[0].getEXP_POS();    
+    double EXP_NEG = state.simulations[0].getEXP_NEG();
+    double t = state.simulations[0].gett();
+    
+
+    state.output.println("capacity " + Integer.toString(capacity), careLog);   
+    state.output.println("NumPatients " + Integer.toString(NumPatients), careLog);   
+    state.output.println("weeks " + Integer.toString(weeks), careLog);   
+    state.output.println("SEVERITY_ALLOCATION " + Double.toString(SEVERITY_ALLOCATION), careLog);   
+    state.output.println("CONTINUITY_ALLOCATION " + Double.toString(CONTINUITY_ALLOCATION), careLog);   
+    state.output.println("DISEASE_SEVERITY " + Double.toString(DISEASE_SEVERITY), careLog);   
+    state.output.println("LEARNING_RATE " + Double.toString(LEARNING_RATE), careLog);   
+    state.output.println("SUBJECTIVE_INITIATIVE " + Double.toString(SUBJECTIVE_INITIATIVE), careLog);   
+    state.output.println("EXP_POS " + Double.toString(EXP_POS), careLog);   
+    state.output.println("EXP_NEG " + Double.toString(EXP_NEG), careLog);   
+    state.output.println("t " + Double.toString(t), careLog); 
+    state.output.println("fit: doctor.provided_treatment", careLog);
+
+    
     }
     
 }

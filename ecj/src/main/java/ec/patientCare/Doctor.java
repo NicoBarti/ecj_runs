@@ -12,6 +12,9 @@ public class Doctor implements Steppable {
 	double LEARNING_RATE;
 	//private double policy;
 
+	//Debbuging LERANING_RATE
+	double provided_treatment;
+	
 	@Override
 	public void step(SimState state) {
 		openAgenda();
@@ -39,13 +42,14 @@ public class Doctor implements Steppable {
 		// Then compute the treatment mix using the learning parameter
 		//System.out.println(LEARNING_RATE);
 		double treatment_mix = (LEARNING_RATE * learned_treatment) + ((1-LEARNING_RATE) * t);
+		provided_treatment += Math.min(treatment_mix, needs);
 		return(Math.min(treatment_mix, needs));
 	}
-	
+
 	public void initializeDoctor(int capacity, int nPatients, double tto, double RATE) {
 		Capacity = capacity;
 		visitCounter = new int[nPatients];
-		t = tto;
+		t = tto; //max effect of treatment
 		LEARNING_RATE = RATE;
 		//policy = 1/3;
 	}

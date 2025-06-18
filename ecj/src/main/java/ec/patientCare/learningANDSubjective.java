@@ -26,27 +26,15 @@ public class learningANDSubjective extends Problem implements SimpleProblemForm 
         if (!(ind2.fitness instanceof SimpleFitness))
             state.output.fatal("Whoa!  It's not a SimpleFitness!!!",null);
         
-        double f0; double f1;double f2;double f3;double f4;double f5;
-        double f6;
-        double f7;
-        double f8;
-        double f9;
         
-        f0 = fit((DoubleVectorIndividual)ind2, state.simulations[threadnum]);
-        f1 = fit((DoubleVectorIndividual)ind2, state.simulations[threadnum]);
-        f2 = fit((DoubleVectorIndividual)ind2, state.simulations[threadnum]);
-        f3 = fit((DoubleVectorIndividual)ind2, state.simulations[threadnum]);
-        f3 = fit((DoubleVectorIndividual)ind2, state.simulations[threadnum]);
-        f4 = fit((DoubleVectorIndividual)ind2, state.simulations[threadnum]);
-        f5 = fit((DoubleVectorIndividual)ind2, state.simulations[threadnum]);
-        f6 = fit((DoubleVectorIndividual)ind2, state.simulations[threadnum]);
-        f7 = fit((DoubleVectorIndividual)ind2, state.simulations[threadnum]);
-        f8 = fit((DoubleVectorIndividual)ind2, state.simulations[threadnum]);
-        f9 = fit((DoubleVectorIndividual)ind2, state.simulations[threadnum]);
-
+        double f = 0;
+        int numberOfReps = 10;
         
-        double f;
-        f = (f0+f1+f2+f3+f4+f5+f6+f7+f8+f9)/10;
+        for(int i = 0; i < numberOfReps; i++) {
+        	f += fit((DoubleVectorIndividual)ind2, state.simulations[threadnum]);
+        }
+        f = f/numberOfReps;
+        
         ((SimpleFitness)ind2.fitness).setFitness(state,
                 // ...the fitness...
                 f,
@@ -67,11 +55,12 @@ public class learningANDSubjective extends Problem implements SimpleProblemForm 
 		}
 		while (simulation.schedule.getSteps() < simulation.getweeks());
     	
-		double fit = 0; 
-		for (int i = 0; i < simulation.patients.numObjs; i++) {
-			fit += ((Patient) (simulation.patients.objs[i])).getNecesidades();
-		}
-		return -fit/simulation.patients.numObjs;
+		//double fit = 0; 
+//		for (int i = 0; i < simulation.patients.numObjs; i++) {
+//			fit += ((Patient) (simulation.patients.objs[i])).getNecesidades();
+//		}
+//		return -fit/simulation.patients.numObjs;
+		return simulation.doctor.provided_treatment;
     	
     }
     

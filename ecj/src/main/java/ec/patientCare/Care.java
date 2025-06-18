@@ -10,9 +10,9 @@ import sim.util.*;
 
 public class Care extends SimState {
 	//constrains
-	public int capacity = 80;
-	public int numPatients = 1000;
-	public int weeks = 150;
+	public int capacity = 10;
+	public int numPatients = 100;
+	public int weeks = 10;
 	
 	// PARAMS:
 	public double SEVERITY_ALLOCATION = 0;
