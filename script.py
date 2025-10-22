@@ -38,7 +38,7 @@ with open(path, 'r') as f:
             True
         else:
             if line.split()[0] == 'Fitness:':
-                fit.append(float(line.split()[1])*-1) ## convertst to possitive fittnes
+                fit.append(float(line.split()[1]))
             else:
                 genome.append(line.split())
 

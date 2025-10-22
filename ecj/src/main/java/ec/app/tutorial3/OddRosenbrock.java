@@ -9,9 +9,9 @@ package ec.app.tutorial3;
 
 import ec.util.*;
 import ec.*;
+import ec.patientCare_previous.*;
 import ec.simple.*;
 import ec.vector.*;
-import ec.patientCare.*;
 
 public class OddRosenbrock extends Problem implements SimpleProblemForm
     {
