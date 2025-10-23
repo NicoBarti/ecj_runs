@@ -6,15 +6,12 @@
 
 
 package ec;
-import ec.patientCare_previous.*;
 import ec.util.*;
 import java.util.*;
 import java.io.*;
 public class EvolutionState implements Singleton
     {
     private static final long serialVersionUID = 1;
-	public Care[] simulations;
-
 
     /** The parameter database (threadsafe).  Parameter objects are also threadsafe.
         Nonetheless, you should generally try to treat this database as read-only. */
