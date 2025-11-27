@@ -1,9 +1,9 @@
-package ec.lineStability;
+package ec.outcomeMatrix;
 import ec.EvolutionState;
 import ec.util.Code;
 import ec.vector.DoubleVectorIndividual;
 
-public class SensitivityVector extends DoubleVectorIndividual {
+public class Vectors13 extends DoubleVectorIndividual {
 
 	
     public String genotypeToStringForHumans()
@@ -47,6 +47,9 @@ public class SensitivityVector extends DoubleVectorIndividual {
     	case 11:
     		s.append(" | totalCapacity: "); s.append(t(genome[11])); 
     		break;
+    	case 12:
+    		s.append(" | policy: "); s.append(getPolicy(genome[12]));
+    		break;
     		}
     	
     return s.toString();
@@ -54,6 +57,12 @@ public class SensitivityVector extends DoubleVectorIndividual {
     
     private String t(double val) {
     	return String.format("%.4f", val);
+    }
+    
+    private String getPolicy(double gen) {
+    	if(gen<1) {return "basal";}
+    	if(gen<2) {return "H_segmented";}
+    	else {return "patient_centred";}
     }
 	
 	

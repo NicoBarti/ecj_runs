@@ -1,8 +1,8 @@
 parent.0		= ../../../resources/ec/simple/simple.params
 
 ##I'm using this class to integrate with MASON
-state ec.lineStability.LineStabilityEvoutionState
-
+##state ec.lineStability.LineStabilityEvoutionState
+state ec.simple.SimpleEvolutionState
 #I'm using a custom initializer to start from a stubborn line
 init = ec.lineStability.LineStabilityInitializer
 

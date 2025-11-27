@@ -1,0 +1,219 @@
+#parent.0		= /Users/nicolasbarticevic/ecj/ecj/src/main/resources/ec/simple/simple.params
+
+breedthreads	= 1
+evalthreads	= 1
+seed.0		= time
+#seed.1      = time
+
+
+
+### Use simple EvolveState
+
+#SimpleEvolutionState defines a simple, generational, non-coevolutionary evolution procedure. The procedure is as follows:
+
+#Call the Initializer to create a Population.
+#Call the Evaluator on the Population, replacing the old Population with the result.
+#If the Evaluator found an ideal Individual, and if we're quitting when we find an ideal individual, then go to Step 9.
+#Else if we've run out of generations, go to Step 9.
+#Call the Exchanger on the Population (asking for a Pre-breeding Exchange), replacing the old Population with the result.
+#Call the Breeder on the Population, replacing the old Population with the result.
+#Call the Exchanger on the Population (asking for a Post-breeding Exchange), replacing the old Population with the result.
+#Increment the generation count, and go to Step 2.
+#Call the Finisher on the population, then quit.
+
+state		= ec.simple.SimpleEvolutionState
+
+#configure state:
+
+pop		    = ec.Population
+init		= ec.simple.SimpleInitializer
+finish		= ec.simple.SimpleFinisher
+breed		= ec.simple.SimpleBreeder
+eval		= ec.simple.SimpleEvaluator
+stat		= ec.simple.SimpleStatistics
+exch		= ec.simple.SimpleExchanger
+
+generations				= 2000
+quit-on-run-complete	= true
+checkpoint				= false
+checkpoint-prefix		= ec
+checkpoint-modulo		= 1
+
+### Define Statistics:
+stat.file		= $inequal.stat
+stat.do-final = true
+stat.do-generation = true
+stat.do-per-generation-description = true
+
+### Define the population parameters
+pop.subpops						= 2
+pop.subpop.0					= ec.Subpopulation
+pop.subpop.1					= ec.Subpopulation
+pop.subpop.0.size 				= 1000
+pop.subpop.1.size 				= 1000
+
+##Don't bother guaranteeing that a new individual is unique
+pop.subpop.0.duplicate-retries 	= 0 
+pop.subpop.1.duplicate-retries 	= 0 
+
+
+# Define representation
+pop.subpop.0.species		= ec.vector.FloatVectorSpecies
+pop.subpop.1.species		= ec.vector.FloatVectorSpecies
+
+## Only modifies the genotypeToStringForHumans()
+pop.subpop.0.species.ind	= ec.outcomeMatrix.Vectors13
+pop.subpop.0.species.genome-size	= 13
+pop.subpop.1.species.ind	= ec.outcomeMatrix.Vectors13
+pop.subpop.1.species.genome-size	= 13
+## For uniform crossover
+pop.subpop.0.species.crossover-type = any 
+pop.subpop.1.species.crossover-type = any 
+
+## Probability that a gene will get crossed over
+pop.subpop.0.species.crossover-prob = 0.2 
+pop.subpop.0.species.max-gene 	= 1 
+pop.subpop.1.species.crossover-prob = 0.2 
+pop.subpop.1.species.max-gene 	= 1 
+
+pop.subpop.1.species.max-gene 	= 1 
+## This param is neede, although the max value for each gene is specified afterwards
+pop.subpop.0.species.min-gene 	= 0
+pop.subpop.1.species.min-gene 	= 0
+
+pop.subpop.0.species.mutation-prob	= 0.1
+pop.subpop.0.species.mutation-bounded = true
+pop.subpop.0.species.mutation-type = gauss
+pop.subpop.0.species.mutation-stdev = 0.1
+pop.subpop.1.species.mutation-prob	= 0.2
+pop.subpop.1.species.mutation-bounded = true
+pop.subpop.1.species.mutation-type = gauss
+pop.subpop.1.species.mutation-stdev = 0.5
+
+# parameters for FloatVectorSpecies specific to q1
+#fixed_lambda
+pop.subpop.0.species.min-gene.0	= 0.5
+pop.subpop.0.species.max-gene.0 	= 0.5 
+pop.subpop.0.species.mutation-prob.0 = 0 
+pop.subpop.1.species.min-gene.0	= 0.5
+pop.subpop.1.species.max-gene.0 	= 0.5 
+pop.subpop.1.species.mutation-prob.0 = 0 
+
+#fixed_tau
+pop.subpop.0.species.min-gene.1	= 0
+pop.subpop.0.species.max-gene.1 	= 2 
+pop.subpop.1.species.min-gene.1	= 0
+pop.subpop.1.species.max-gene.1 	= 2 
+
+#fixed_kappa
+pop.subpop.0.species.min-gene.2	= 0.0961
+pop.subpop.0.species.max-gene.2 	= 0.0961
+pop.subpop.0.species.mutation-prob.2 = 0 
+pop.subpop.1.species.min-gene.2	= 0.0961
+pop.subpop.1.species.max-gene.2 	= 0.0961
+pop.subpop.1.species.mutation-prob.2 = 0 
+
+#fixed_rho
+pop.subpop.0.species.min-gene.3	= 1
+pop.subpop.0.species.max-gene.3 	= 1 
+pop.subpop.0.species.mutation-prob.3 = 0 
+pop.subpop.1.species.min-gene.3	= 1
+pop.subpop.1.species.max-gene.3 	= 1 
+pop.subpop.1.species.mutation-prob.3 = 0 
+
+#fixed_eta
+pop.subpop.0.species.min-gene.4	= 1
+pop.subpop.0.species.max-gene.4 	= 1
+pop.subpop.0.species.mutation-prob.4 = 0 
+pop.subpop.1.species.min-gene.4	= 1
+pop.subpop.1.species.max-gene.4 	= 1
+pop.subpop.1.species.mutation-prob.4 = 0 
+
+
+#fixed_capN
+pop.subpop.0.species.min-gene.5	= 10
+pop.subpop.0.species.max-gene.5 	= 10 
+pop.subpop.0.species.mutation-prob.5 = 0 
+pop.subpop.1.species.min-gene.5	= 10
+pop.subpop.1.species.max-gene.5 	= 10 
+pop.subpop.1.species.mutation-prob.5 = 0 
+
+#fixed_capE
+pop.subpop.0.species.min-gene.6	= 10
+pop.subpop.0.species.max-gene.6 	= 10 
+pop.subpop.0.species.mutation-prob.6 = 0 
+pop.subpop.1.species.min-gene.6	= 10
+pop.subpop.1.species.max-gene.6 	= 10 
+pop.subpop.1.species.mutation-prob.6 = 0 
+
+
+#fixed_psi
+pop.subpop.0.species.min-gene.7	= 0.5
+pop.subpop.0.species.max-gene.7 	= 0.5
+pop.subpop.0.species.mutation-prob.7 = 0 
+pop.subpop.1.species.min-gene.7	= 0.5
+pop.subpop.1.species.max-gene.7 	= 0.5
+pop.subpop.1.species.mutation-prob.7 = 0 
+
+#N
+pop.subpop.0.species.min-gene.8	= 500
+pop.subpop.0.species.max-gene.8 	= 5000 
+pop.subpop.1.species.min-gene.8	= 500
+pop.subpop.1.species.max-gene.8 	= 5000 
+
+#W
+pop.subpop.0.species.min-gene.9	= 1
+pop.subpop.0.species.max-gene.9 	= 50 
+pop.subpop.1.species.min-gene.9	= 1
+pop.subpop.1.species.max-gene.9 	= 50 
+
+#fixed_delta
+pop.subpop.0.species.min-gene.10	= 5
+pop.subpop.0.species.max-gene.10 	= 5 
+pop.subpop.0.species.mutation-prob.10 = 0 
+pop.subpop.1.species.min-gene.10	= 5
+pop.subpop.1.species.max-gene.10 	= 5 
+pop.subpop.1.species.mutation-prob.10 = 0 
+
+#totalCapacity
+pop.subpop.0.species.min-gene.11	= 1
+pop.subpop.0.species.max-gene.11 	= 200 
+pop.subpop.1.species.min-gene.11	= 1
+pop.subpop.1.species.max-gene.11 	= 200 
+
+#policy
+pop.subpop.0.species.min-gene.12	= 0
+pop.subpop.0.species.max-gene.12 	= 3
+pop.subpop.1.species.min-gene.12	= 0
+pop.subpop.1.species.max-gene.12 	= 3
+
+### Define the Fitness
+pop.subpop.0.species.fitness = ec.simple.SimpleFitness
+pop.subpop.1.species.fitness = ec.simple.SimpleFitness
+
+
+###Define the Breeding Procedure:
+#In tree structure. The root of the pipeline is pop.subpop.0.species.pipe:
+
+pop.subpop.0.species.pipe				= ec.vector.breed.VectorMutationPipeline
+pop.subpop.0.species.pipe.source.0		= ec.vector.breed.VectorCrossoverPipeline
+pop.subpop.0.species.pipe.source.0.source.0	= ec.select.TournamentSelection
+pop.subpop.0.species.pipe.source.0.source.1	= ec.select.TournamentSelection
+
+
+pop.subpop.1.species.pipe				= ec.vector.breed.VectorMutationPipeline
+pop.subpop.1.species.pipe.source.0		= ec.vector.breed.VectorCrossoverPipeline
+pop.subpop.1.species.pipe.source.0.source.0	= ec.select.TournamentSelection
+pop.subpop.1.species.pipe.source.0.source.1	= ec.select.TournamentSelection
+
+#Specification of the crossover operator
+
+#Specification of the torunment selection operator
+pop.subpop.0.species.pipe.source.0.source.0.size	= 2
+pop.subpop.0.species.pipe.source.0.source.1.size	= 2
+pop.subpop.1.species.pipe.source.0.source.0.size	= 2
+pop.subpop.1.species.pipe.source.0.source.1.size	= 2
+
+### Define the problem
+eval.problem		= ec.outcomeMatrix.Q1Evaluator
+
